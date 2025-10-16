@@ -1,0 +1,12 @@
+{
+  "meta": {
+    "url": "https://www.aphp.fr/",
+    "generatedAt": "2025-10-16T10:04:40.597Z"
+  },
+  "scores": {
+    "overall": 95,
+    "desktop": 95,
+    "mobile": 95
+  },
+  "wcagEstimatedLevel": "Non conforme A"
+}

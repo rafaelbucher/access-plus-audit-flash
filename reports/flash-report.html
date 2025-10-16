@@ -1,0 +1,557 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Audit flash accessibilité</title>
+<style>
+  :root{
+    --bg:#202124; --panel:#2b2b2f; --card:#fff;
+    --text:#1f2937; --muted:#6b7280; --line:#e5e7eb;
+    --lh-green:#0cce6b; --lh-orange:#ffa400; --lh-red:#ff4e42; --lh-blue:#1a73e8;
+  }
+  body{margin:0;background:#f6f7f9;color:var(--text);font:14px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Arial}
+  header{background:linear-gradient(135deg,var(--bg),#1b2a4c); color:#e8eaed; padding:24px 28px}
+  header .title{font-size:20px;font-weight:700}
+  header .meta{opacity:.8;font-size:12px;margin-top:6px}
+  .container{max-width:1120px;margin:0 auto;padding:20px}
+  .panel{background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 2px 6px rgba(0,0,0,.06);padding:16px}
+  /* Gauges */
+  .gauges{display:flex;gap:18px;flex-wrap:wrap}
+  .gauge{position:relative;width:120px;height:120px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+  .gauge .ring{width:100px;height:100px;border-radius:50%;
+    background:conic-gradient(var(--col) calc(var(--val)*1%), #e0e3e7 0);
+    mask:radial-gradient(circle 40px at 50% 50%, transparent 99%, #000 100%);
+    -webkit-mask:radial-gradient(circle 40px at 50% 50%, transparent 99%, #000 100%);
+    box-shadow:inset 0 0 0 8px #fff;
+  }
+  .gauge .num{position:absolute;font-size:22px;font-weight:800}
+  .gauge .lbl{margin-top:8px;font-size:12px;color:#374151}
+  /* Summary */
+  .summary{display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-top:16px}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px}
+  .k{font-size:12px;color:var(--muted);margin-bottom:4px}
+  .v{font-size:20px;font-weight:700}
+  h2{font-size:16px;margin:24px 0 12px}
+  /* Criteria (1 colonne + accordéon) */
+  .criteria{display:grid;grid-template-columns:1fr;gap:14px}
+  .crit{background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .crit-header{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;background:#fff}
+  .crit-title{display:flex;align-items:center;gap:8px}
+  .crit-btn{appearance:none;background:none;border:0;color:inherit;width:100%;text-align:left;padding:0;display:flex;align-items:center;justify-content:space-between;cursor:pointer}
+  .chev{transition:transform .2s ease}
+  .crit-btn[aria-expanded="true"] .chev{transform:rotate(90deg)}
+  .crit-panel{padding:0 14px 12px 14px;display:block}
+  .crit-panel[hidden]{display:none}
+  .badge{display:inline-block;border-radius:999px;padding:2px 8px;font-size:12px;margin-left:8px;color:#111}
+  .ok{background:#e6f4ea}.avg{background:#fff4e5}.warn{background:#fde7e9}.fail{background:#ffd6d1}
+  table{width:100%;border-collapse:collapse;margin-top:8px}
+  th,td{border-top:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top;font-size:13px}
+  .src{font-size:11px;border:1px solid var(--line);border-radius:8px;padding:2px 6px;margin-right:6px;white-space:nowrap}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+  /* Toolbar accordéon */
+  .toolbar{display:flex;gap:8px;margin:8px 0 12px}
+  .btn{appearance:none;border:1px solid var(--line);background:#fff;border-radius:8px;padding:8px 10px;cursor:pointer}
+  .btn:hover{background:#f1f5f9}
+  footer{color:#5f6368;text-align:center;font-size:12px;margin:24px 0}
+  @media (max-width: 860px){ .summary{grid-template-columns:1fr} }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="title">Audit flash accessibilité <span style="opacity:.85">— https://www.aphp.fr/</span></div>
+  <div class="meta">Généré le 2025-10-16 10:04:40.208 UTC</div>
+</header>
+
+<div class="container">
+  <section class="panel">
+    <div class="gauges">
+      
+  <div class="gauge">
+    <div class="ring" style="--val:95;--col:var(--lh-green)"></div>
+    <div class="num">95</div>
+    <div class="lbl">Score global</div>
+  </div>
+      
+  <div class="gauge">
+    <div class="ring" style="--val:95;--col:var(--lh-green)"></div>
+    <div class="num">95</div>
+    <div class="lbl">LH Mobile</div>
+  </div>
+      
+  <div class="gauge">
+    <div class="ring" style="--val:95;--col:var(--lh-green)"></div>
+    <div class="num">95</div>
+    <div class="lbl">LH Desktop</div>
+  </div>
+    </div>
+
+    <div class="summary">
+      <div class="cards">
+        <div class="card"><div class="k">Défauts axe (Desktop)</div><div class="v">1</div></div>
+        <div class="card"><div class="k">Défauts axe (Mobile)</div><div class="v">1</div></div>
+        <div class="card"><div class="k">Issues Pa11y</div><div class="v">10</div></div>
+        <div class="card"><div class="k">Échecs QualWeb</div><div class="v">0</div></div>
+      </div>
+      <div class="cards">
+        <div class="card"><div class="k">Durée approx.</div><div class="v">55s</div></div>
+        <div class="card"><div class="k">Fenêtre d'exécution</div><div class="v" style="font-size:12px;line-height:1.3">2025-10-16 10:03:44.805 UTC → 2025-10-16 10:04:39.899 UTC</div></div>
+      </div>
+    </div>
+  </section>
+
+  
+  <h2>Top 10 critères — Desktop</h2>
+  <div class="toolbar" role="toolbar" aria-label="Contrôles accordéon Top 10 critères — Desktop">
+    <button class="btn" data-scope="criteria-desktop" data-action="open-all" type="button">Tout ouvrir</button>
+    <button class="btn" data-scope="criteria-desktop" data-action="close-all" type="button">Tout fermer</button>
+  </div>
+  <section class="criteria" id="criteria-desktop">
+    
+      <div class="crit">
+        <div class="crit-header">
+          <button class="crit-btn" aria-expanded="false" aria-controls="criteria-desktop-panel-0">
+            <span class="crit-title">
+              <strong>Contraste</strong>
+              <span class="badge ok">0 défaut</span>
+            </span>
+            <span class="chev" aria-hidden="true">▶</span>
+          </button>
+        </div>
+        <div id="criteria-desktop-panel-0" class="crit-panel" role="region" aria-labelledby="criteria-desktop-panel-0-label" hidden>
+          <table>
+            <thead><tr><th style="width:28%">Règle</th><th>Description</th><th>CSS cible</th></tr></thead>
+            <tbody>
+              
+              <tr><td colspan="3" style="color:#5f6368">RAS</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="crit">
+        <div class="crit-header">
+          <button class="crit-btn" aria-expanded="false" aria-controls="criteria-desktop-panel-1">
+            <span class="crit-title">
+              <strong>Alternatives textuelles</strong>
+              <span class="badge ok">0 défaut</span>
+            </span>
+            <span class="chev" aria-hidden="true">▶</span>
+          </button>
+        </div>
+        <div id="criteria-desktop-panel-1" class="crit-panel" role="region" aria-labelledby="criteria-desktop-panel-1-label" hidden>
+          <table>
+            <thead><tr><th style="width:28%">Règle</th><th>Description</th><th>CSS cible</th></tr></thead>
+            <tbody>
+              
+              <tr><td colspan="3" style="color:#5f6368">RAS</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="crit">
+        <div class="crit-header">
+          <button class="crit-btn" aria-expanded="false" aria-controls="criteria-desktop-panel-2">
+            <span class="crit-title">
+              <strong>Navigation clavier / ordre du focus</strong>
+              <span class="badge ok">0 défaut</span>
+            </span>
+            <span class="chev" aria-hidden="true">▶</span>
+          </button>
+        </div>
+        <div id="criteria-desktop-panel-2" class="crit-panel" role="region" aria-labelledby="criteria-desktop-panel-2-label" hidden>
+          <table>
+            <thead><tr><th style="width:28%">Règle</th><th>Description</th><th>CSS cible</th></tr></thead>
+            <tbody>
+              
+              <tr><td colspan="3" style="color:#5f6368">RAS</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="crit">
+        <div class="crit-header">
+          <button class="crit-btn" aria-expanded="false" aria-controls="criteria-desktop-panel-3">
+            <span class="crit-title">
+              <strong>Visibilité du focus</strong>
+              <span class="badge ok">0 défaut</span>
+            </span>
+            <span class="chev" aria-hidden="true">▶</span>
+          </button>
+        </div>
+        <div id="criteria-desktop-panel-3" class="crit-panel" role="region" aria-labelledby="criteria-desktop-panel-3-label" hidden>
+          <table>
+            <thead><tr><th style="width:28%">Règle</th><th>Description</th><th>CSS cible</th></tr></thead>
+            <tbody>
+              
+              <tr><td colspan="3" style="color:#5f6368">RAS</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="crit">
+        <div class="crit-header">
+          <button class="crit-btn" aria-expanded="false" aria-controls="criteria-desktop-panel-4">
+            <span class="crit-title">
+              <strong>Structure sémantique (titres, landmarks)</strong>
+              <span class="badge ok">0 défaut</span>
+            </span>
+            <span class="chev" aria-hidden="true">▶</span>
+          </button>
+        </div>
+        <div id="criteria-desktop-panel-4" class="crit-panel" role="region" aria-labelledby="criteria-desktop-panel-4-label" hidden>
+          <table>
+            <thead><tr><th style="width:28%">Règle</th><th>Description</th><th>CSS cible</th></tr></thead>
+            <tbody>
+              
+              <tr><td colspan="3" style="color:#5f6368">RAS</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="crit">
+        <div class="crit-header">
+          <button class="crit-btn" aria-expanded="false" aria-controls="criteria-desktop-panel-5">
+            <span class="crit-title">
+              <strong>Liens (nom accessible, contexte)</strong>
+              <span class="badge ok">0 défaut</span>
+            </span>
+            <span class="chev" aria-hidden="true">▶</span>
+          </button>
+        </div>
+        <div id="criteria-desktop-panel-5" class="crit-panel" role="region" aria-labelledby="criteria-desktop-panel-5-label" hidden>
+          <table>
+            <thead><tr><th style="width:28%">Règle</th><th>Description</th><th>CSS cible</th></tr></thead>
+            <tbody>
+              
+              <tr><td colspan="3" style="color:#5f6368">RAS</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="crit">
+        <div class="crit-header">
+          <button class="crit-btn" aria-expanded="false" aria-controls="criteria-desktop-panel-6">
+            <span class="crit-title">
+              <strong>Formulaires (labels, erreurs, autocomplete)</strong>
+              <span class="badge ok">0 défaut</span>
+            </span>
+            <span class="chev" aria-hidden="true">▶</span>
+          </button>
+        </div>
+        <div id="criteria-desktop-panel-6" class="crit-panel" role="region" aria-labelledby="criteria-desktop-panel-6-label" hidden>
+          <table>
+            <thead><tr><th style="width:28%">Règle</th><th>Description</th><th>CSS cible</th></tr></thead>
+            <tbody>
+              
+              <tr><td colspan="3" style="color:#5f6368">RAS</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="crit">
+        <div class="crit-header">
+          <button class="crit-btn" aria-expanded="false" aria-controls="criteria-desktop-panel-7">
+            <span class="crit-title">
+              <strong>Langue du document</strong>
+              <span class="badge ok">0 défaut</span>
+            </span>
+            <span class="chev" aria-hidden="true">▶</span>
+          </button>
+        </div>
+        <div id="criteria-desktop-panel-7" class="crit-panel" role="region" aria-labelledby="criteria-desktop-panel-7-label" hidden>
+          <table>
+            <thead><tr><th style="width:28%">Règle</th><th>Description</th><th>CSS cible</th></tr></thead>
+            <tbody>
+              
+              <tr><td colspan="3" style="color:#5f6368">RAS</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="crit">
+        <div class="crit-header">
+          <button class="crit-btn" aria-expanded="false" aria-controls="criteria-desktop-panel-8">
+            <span class="crit-title">
+              <strong>ARIA (rôles, attributs valides)</strong>
+              <span class="badge ok">0 défaut</span>
+            </span>
+            <span class="chev" aria-hidden="true">▶</span>
+          </button>
+        </div>
+        <div id="criteria-desktop-panel-8" class="crit-panel" role="region" aria-labelledby="criteria-desktop-panel-8-label" hidden>
+          <table>
+            <thead><tr><th style="width:28%">Règle</th><th>Description</th><th>CSS cible</th></tr></thead>
+            <tbody>
+              
+              <tr><td colspan="3" style="color:#5f6368">RAS</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="crit">
+        <div class="crit-header">
+          <button class="crit-btn" aria-expanded="false" aria-controls="criteria-desktop-panel-9">
+            <span class="crit-title">
+              <strong>Médias (vidéo/audio : sous-titres, auto-lecture)</strong>
+              <span class="badge ok">0 défaut</span>
+            </span>
+            <span class="chev" aria-hidden="true">▶</span>
+          </button>
+        </div>
+        <div id="criteria-desktop-panel-9" class="crit-panel" role="region" aria-labelledby="criteria-desktop-panel-9-label" hidden>
+          <table>
+            <thead><tr><th style="width:28%">Règle</th><th>Description</th><th>CSS cible</th></tr></thead>
+            <tbody>
+              
+              <tr><td colspan="3" style="color:#5f6368">RAS</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+  </section>
+
+  
+  <h2>Top 10 critères — Mobile</h2>
+  <div class="toolbar" role="toolbar" aria-label="Contrôles accordéon Top 10 critères — Mobile">
+    <button class="btn" data-scope="criteria-mobile" data-action="open-all" type="button">Tout ouvrir</button>
+    <button class="btn" data-scope="criteria-mobile" data-action="close-all" type="button">Tout fermer</button>
+  </div>
+  <section class="criteria" id="criteria-mobile">
+    
+      <div class="crit">
+        <div class="crit-header">
+          <button class="crit-btn" aria-expanded="false" aria-controls="criteria-mobile-panel-0">
+            <span class="crit-title">
+              <strong>Contraste</strong>
+              <span class="badge ok">0 défaut</span>
+            </span>
+            <span class="chev" aria-hidden="true">▶</span>
+          </button>
+        </div>
+        <div id="criteria-mobile-panel-0" class="crit-panel" role="region" aria-labelledby="criteria-mobile-panel-0-label" hidden>
+          <table>
+            <thead><tr><th style="width:28%">Règle</th><th>Description</th><th>CSS cible</th></tr></thead>
+            <tbody>
+              
+              <tr><td colspan="3" style="color:#5f6368">RAS</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="crit">
+        <div class="crit-header">
+          <button class="crit-btn" aria-expanded="false" aria-controls="criteria-mobile-panel-1">
+            <span class="crit-title">
+              <strong>Alternatives textuelles</strong>
+              <span class="badge ok">0 défaut</span>
+            </span>
+            <span class="chev" aria-hidden="true">▶</span>
+          </button>
+        </div>
+        <div id="criteria-mobile-panel-1" class="crit-panel" role="region" aria-labelledby="criteria-mobile-panel-1-label" hidden>
+          <table>
+            <thead><tr><th style="width:28%">Règle</th><th>Description</th><th>CSS cible</th></tr></thead>
+            <tbody>
+              
+              <tr><td colspan="3" style="color:#5f6368">RAS</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="crit">
+        <div class="crit-header">
+          <button class="crit-btn" aria-expanded="false" aria-controls="criteria-mobile-panel-2">
+            <span class="crit-title">
+              <strong>Navigation clavier / ordre du focus</strong>
+              <span class="badge ok">0 défaut</span>
+            </span>
+            <span class="chev" aria-hidden="true">▶</span>
+          </button>
+        </div>
+        <div id="criteria-mobile-panel-2" class="crit-panel" role="region" aria-labelledby="criteria-mobile-panel-2-label" hidden>
+          <table>
+            <thead><tr><th style="width:28%">Règle</th><th>Description</th><th>CSS cible</th></tr></thead>
+            <tbody>
+              
+              <tr><td colspan="3" style="color:#5f6368">RAS</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="crit">
+        <div class="crit-header">
+          <button class="crit-btn" aria-expanded="false" aria-controls="criteria-mobile-panel-3">
+            <span class="crit-title">
+              <strong>Visibilité du focus</strong>
+              <span class="badge ok">0 défaut</span>
+            </span>
+            <span class="chev" aria-hidden="true">▶</span>
+          </button>
+        </div>
+        <div id="criteria-mobile-panel-3" class="crit-panel" role="region" aria-labelledby="criteria-mobile-panel-3-label" hidden>
+          <table>
+            <thead><tr><th style="width:28%">Règle</th><th>Description</th><th>CSS cible</th></tr></thead>
+            <tbody>
+              
+              <tr><td colspan="3" style="color:#5f6368">RAS</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="crit">
+        <div class="crit-header">
+          <button class="crit-btn" aria-expanded="false" aria-controls="criteria-mobile-panel-4">
+            <span class="crit-title">
+              <strong>Structure sémantique (titres, landmarks)</strong>
+              <span class="badge ok">0 défaut</span>
+            </span>
+            <span class="chev" aria-hidden="true">▶</span>
+          </button>
+        </div>
+        <div id="criteria-mobile-panel-4" class="crit-panel" role="region" aria-labelledby="criteria-mobile-panel-4-label" hidden>
+          <table>
+            <thead><tr><th style="width:28%">Règle</th><th>Description</th><th>CSS cible</th></tr></thead>
+            <tbody>
+              
+              <tr><td colspan="3" style="color:#5f6368">RAS</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="crit">
+        <div class="crit-header">
+          <button class="crit-btn" aria-expanded="false" aria-controls="criteria-mobile-panel-5">
+            <span class="crit-title">
+              <strong>Liens (nom accessible, contexte)</strong>
+              <span class="badge ok">0 défaut</span>
+            </span>
+            <span class="chev" aria-hidden="true">▶</span>
+          </button>
+        </div>
+        <div id="criteria-mobile-panel-5" class="crit-panel" role="region" aria-labelledby="criteria-mobile-panel-5-label" hidden>
+          <table>
+            <thead><tr><th style="width:28%">Règle</th><th>Description</th><th>CSS cible</th></tr></thead>
+            <tbody>
+              
+              <tr><td colspan="3" style="color:#5f6368">RAS</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="crit">
+        <div class="crit-header">
+          <button class="crit-btn" aria-expanded="false" aria-controls="criteria-mobile-panel-6">
+            <span class="crit-title">
+              <strong>Formulaires (labels, erreurs, autocomplete)</strong>
+              <span class="badge ok">0 défaut</span>
+            </span>
+            <span class="chev" aria-hidden="true">▶</span>
+          </button>
+        </div>
+        <div id="criteria-mobile-panel-6" class="crit-panel" role="region" aria-labelledby="criteria-mobile-panel-6-label" hidden>
+          <table>
+            <thead><tr><th style="width:28%">Règle</th><th>Description</th><th>CSS cible</th></tr></thead>
+            <tbody>
+              
+              <tr><td colspan="3" style="color:#5f6368">RAS</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="crit">
+        <div class="crit-header">
+          <button class="crit-btn" aria-expanded="false" aria-controls="criteria-mobile-panel-7">
+            <span class="crit-title">
+              <strong>Langue du document</strong>
+              <span class="badge ok">0 défaut</span>
+            </span>
+            <span class="chev" aria-hidden="true">▶</span>
+          </button>
+        </div>
+        <div id="criteria-mobile-panel-7" class="crit-panel" role="region" aria-labelledby="criteria-mobile-panel-7-label" hidden>
+          <table>
+            <thead><tr><th style="width:28%">Règle</th><th>Description</th><th>CSS cible</th></tr></thead>
+            <tbody>
+              
+              <tr><td colspan="3" style="color:#5f6368">RAS</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="crit">
+        <div class="crit-header">
+          <button class="crit-btn" aria-expanded="false" aria-controls="criteria-mobile-panel-8">
+            <span class="crit-title">
+              <strong>ARIA (rôles, attributs valides)</strong>
+              <span class="badge ok">0 défaut</span>
+            </span>
+            <span class="chev" aria-hidden="true">▶</span>
+          </button>
+        </div>
+        <div id="criteria-mobile-panel-8" class="crit-panel" role="region" aria-labelledby="criteria-mobile-panel-8-label" hidden>
+          <table>
+            <thead><tr><th style="width:28%">Règle</th><th>Description</th><th>CSS cible</th></tr></thead>
+            <tbody>
+              
+              <tr><td colspan="3" style="color:#5f6368">RAS</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="crit">
+        <div class="crit-header">
+          <button class="crit-btn" aria-expanded="false" aria-controls="criteria-mobile-panel-9">
+            <span class="crit-title">
+              <strong>Médias (vidéo/audio : sous-titres, auto-lecture)</strong>
+              <span class="badge ok">0 défaut</span>
+            </span>
+            <span class="chev" aria-hidden="true">▶</span>
+          </button>
+        </div>
+        <div id="criteria-mobile-panel-9" class="crit-panel" role="region" aria-labelledby="criteria-mobile-panel-9-label" hidden>
+          <table>
+            <thead><tr><th style="width:28%">Règle</th><th>Description</th><th>CSS cible</th></tr></thead>
+            <tbody>
+              
+              <tr><td colspan="3" style="color:#5f6368">RAS</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+  </section>
+
+
+  <footer>Inspiré du design Lighthouse • Sources : axe-core (Desktop & Mobile), Pa11y, Lighthouse, QualWeb</footer>
+</div>
+
+<script>
+  // Toggle individuel
+  document.querySelectorAll('.crit-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const expanded = btn.getAttribute('aria-expanded') === 'true';
+      const panel = document.getElementById(btn.getAttribute('aria-controls'));
+      btn.setAttribute('aria-expanded', String(!expanded));
+      if (panel) panel.hidden = expanded;
+    });
+  });
+
+  // Ouvrir / Fermer tous (scopé par section)
+  const setAll = (scopeId, open) => {
+    document.querySelectorAll('#'+scopeId+' .crit-btn').forEach(btn => {
+      btn.setAttribute('aria-expanded', String(open));
+      const panel = document.getElementById(btn.getAttribute('aria-controls'));
+      if (panel) panel.hidden = !open;
+    });
+  };
+  document.querySelectorAll('[data-action="open-all"]').forEach(b => {
+    b.addEventListener('click', () => setAll(b.dataset.scope, true));
+  });
+  document.querySelectorAll('[data-action="close-all"]').forEach(b => {
+    b.addEventListener('click', () => setAll(b.dataset.scope, false));
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Résumé accessibilité</title>
+<style>
+  :root{ --bg:#f6f7f9; --text:#1f2937; --panel:#ffffff; --line:#e5e7eb; --ring:#e6e6e6; }
+  body{margin:0;background:var(--bg);color:var(--text);font:14px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Arial}
+  .container{max-width:980px;margin:0 auto;padding:24px}
+  .header{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:20px}
+  .title{margin:0;font-size:22px;font-weight:800}
+  .meta{font-size:12px;color:#475569;margin-top:6px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px;display:flex;align-items:center;justify-content:center}
+  .gauge__label{font:800 32px/1 system-ui,-apple-system,Segoe UI,Roboto,Arial; fill:#111}
+  .gauge__arc{transition:stroke-dashoffset .9s cubic-bezier(.2,0,0,1)}
+  .wcag{margin-top:10px;text-align:center;font-weight:600}
+  h2{font-size:16px;margin:26px 0 10px}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px}
+  .list{margin:8px 0 0 18px}
+  .list li{margin:6px 0}
+  .muted{color:#64748b}
+  .badge{display:inline-block;background:#eef2ff;border:1px solid #c7d2fe;color:#1e293b;border-radius:999px;padding:2px 8px;margin-left:8px;font-size:12px}
+
+  /* --- Do & Don't (page dédiée pour PDF) --- */
+  .page-break{page-break-before:always;margin-top:24px}
+  .dodont{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:8px}
+  .card-dd{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:14px}
+  h2 small{color:#64748b;font-weight:400}
+  .do-title,.dont-title{font-size:13px;font-weight:800;margin:0 0 8px}
+  .badge-do,.badge-dont{display:inline-block;border-radius:999px;padding:2px 8px;font-size:12px}
+  .badge-do{background:#e6f4ea;color:#0f5132;border:1px solid #b7e0c2}
+  .badge-dont{background:#fde7e9;color:#842029;border:1px solid #f5c2c7}
+  pre.code{background:#0b1222;color:#e2e8f0;border-radius:10px;padding:10px;overflow:auto}
+  pre.ok{background:#0b2216}
+  pre.bad{background:#2a0e0e}
+  .note{font-size:12px;color:#475569;margin-top:6px}
+  @media print{
+    .page-break{page-break-before:always}
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div>
+        <h1 class="title">Résumé accessibilité</h1>
+        <div class="meta">https://www.aphp.fr/ • Généré le 2025-10-16 10:04:40.596 UTC</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div>
+        <svg viewBox="0 0 180 180" width="180" height="180" aria-hidden="true">
+          <circle cx="90" cy="90" r="70" fill="none" stroke="var(--ring)" stroke-width="18"/>
+          <g transform="rotate(-90 90 90)">
+            <circle class="gauge__arc" data-val="417.832"
+              cx="90" cy="90" r="70" fill="none"
+              stroke="#0cce6b" stroke-width="18" stroke-linecap="round"
+              stroke-dasharray="439.823 439.823" stroke-dashoffset="439.823"/>
+          </g>
+          <text x="90" y="90" class="gauge__label" text-anchor="middle" dominant-baseline="middle">
+            95
+          </text>
+        </svg>
+        <div class="wcag">Non conforme A <span class="muted">— Des critères de niveau A échouent (minimum non atteint).</span></div>
+      </div>
+    </div>
+
+    <h2>AXE — Desktop<span class="badge">1 règles (max 10)</span></h2>
+    <div class="panel">
+      <ul class="list">
+        <li><strong>Bouton sans libellé</strong> — Ajouter un texte visible ou aria-label décrivant l’action. <span class="muted">(règle : button-name, occurrences : 1)</span></li>
+      </ul>
+    </div>
+
+    <h2>AXE — Mobile<span class="badge">1 règles (max 10)</span></h2>
+    <div class="panel">
+      <ul class="list">
+        <li><strong>Bouton sans libellé</strong> — Ajouter un texte visible ou aria-label décrivant l’action. <span class="muted">(règle : button-name, occurrences : 1)</span></li>
+      </ul>
+    </div>
+
+    <h2>Pa11y — erreurs & avertissements<span class="badge">4 groupes (max 10, 5 ex./groupe)</span></h2>
+    <div class="panel">
+      <ul class="list">
+        <li><strong>Problème d’accessibilité</strong> — Appliquer la bonne pratique indiquée par la règle. <span class="muted">(code : WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Center, exemples : 4)</span></li><li><strong>Contraste insuffisant</strong> — Augmenter le contraste (texte plus foncé / fond plus clair) jusqu’à être lisible. <span class="muted">(code : WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Fail, exemples : 4)</span></li><li><strong>Problème d’accessibilité</strong> — Appliquer la bonne pratique indiquée par la règle. <span class="muted">(code : WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.Textarea.Name, exemples : 1)</span></li><li><strong>Champ sans étiquette</strong> — Associer un <label> clair (ou aria-label si label visible impossible). <span class="muted">(code : WCAG2AA.Principle1.Guideline1_3.1_3_1.F68, exemples : 1)</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Nouvelle page PDF : Do & Don't accessibilité -->
+  <section class="page-break container">
+    <h2>Do & Don’t — 5 bonnes pratiques principales <small>(snippets)</small></h2>
+
+    <div class="dodont">
+      <!-- 1. Textes alternatifs des images -->
+      <div class="card-dd">
+        <div class="do-title"><span class="badge-do">Do</span> Images informatives avec <code>alt</code> descriptif</div>
+        <pre class="code ok"><code>&lt;img src="produit.jpg" alt="Robe rouge en lin, modèle été 2025"&gt;</code></pre>
+        <div class="note">Les lecteurs d’écran annoncent l’image correctement.</div>
+      </div>
+      <div class="card-dd">
+        <div class="dont-title"><span class="badge-dont">Don’t</span> Oublier l’<code>alt</code> ou mettre un texte vague</div>
+        <pre class="code bad"><code>&lt;img src="produit.jpg"&gt;
+&lt;!-- ou --&gt;
+&lt;img src="produit.jpg" alt="image"&gt;</code></pre>
+        <div class="note">Sans description, l’information visuelle n’est pas transmise.</div>
+      </div>
+
+      <!-- 2. Labels de formulaire -->
+      <div class="card-dd">
+        <div class="do-title"><span class="badge-do">Do</span> Associer les labels aux champs</div>
+        <pre class="code ok"><code>&lt;label for="email"&gt;Adresse e-mail&lt;/label&gt;
+&lt;input id="email" type="email" autocomplete="email"&gt;</code></pre>
+        <div class="note">Le champ a un nom clair ; la saisie est facilitée.</div>
+      </div>
+      <div class="card-dd">
+        <div class="dont-title"><span class="badge-dont">Don’t</span> Compter seulement sur le placeholder</div>
+        <pre class="code bad"><code>&lt;input type="email" placeholder="Votre email"&gt;</code></pre>
+        <div class="note">Le placeholder disparaît et n’est pas lu comme nom du champ.</div>
+      </div>
+
+      <!-- 3. Liens explicites -->
+      <div class="card-dd">
+        <div class="do-title"><span class="badge-do">Do</span> Libellés de lien explicites</div>
+        <pre class="code ok"><code>&lt;a href="/guide-accessibilite.pdf"&gt;Télécharger le guide d’accessibilité (PDF)&lt;/a&gt;</code></pre>
+        <div class="note">Le but du lien est compris hors contexte.</div>
+      </div>
+      <div class="card-dd">
+        <div class="dont-title"><span class="badge-dont">Don’t</span> Liens vagues ou vides</div>
+        <pre class="code bad"><code>&lt;a href="/guide-accessibilite.pdf"&gt;Cliquez ici&lt;/a&gt;
+&lt;!-- ou un lien icône sans nom accessible --&gt;
+&lt;a href="/pdf"&gt;&lt;svg …&gt;&lt;/svg&gt;&lt;/a&gt;</code></pre>
+        <div class="note">“Cliquez ici” n’est pas compréhensible pour tous.</div>
+      </div>
+
+      <!-- 4. Focus visible -->
+      <div class="card-dd">
+        <div class="do-title"><span class="badge-do">Do</span> Afficher un focus clavier bien visible</div>
+        <pre class="code ok"><code>/* Style de focus */
+:focus-visible{
+  outline: 3px solid #0cce6b;
+  outline-offset: 2px;
+}</code></pre>
+        <div class="note">La navigation au clavier est possible et visible.</div>
+      </div>
+      <div class="card-dd">
+        <div class="dont-title"><span class="badge-dont">Don’t</span> Supprimer le focus</div>
+        <pre class="code bad"><code>*:focus{ outline: none !important; }</code></pre>
+        <div class="note">Sans repère, on se perd facilement au clavier.</div>
+      </div>
+
+      <!-- 5. Structure et titres -->
+      <div class="card-dd">
+        <div class="do-title"><span class="badge-do">Do</span> Hiérarchie de titres logique</div>
+        <pre class="code ok"><code>&lt;h1&gt;Titre de la page&lt;/h1&gt;
+&lt;h2&gt;Section 1&lt;/h2&gt;
+&lt;h3&gt;Sous-section&lt;/h3&gt;</code></pre>
+        <div class="note">Aide à la compréhension et à la navigation rapide.</div>
+      </div>
+      <div class="card-dd">
+        <div class="dont-title"><span class="badge-dont">Don’t</span> Utiliser des &lt;div&gt; comme titres</div>
+        <pre class="code bad"><code>&lt;div class="title-xl"&gt;Titre principal&lt;/div&gt;</code></pre>
+        <div class="note">Les aides techniques n’y voient pas un véritable titre.</div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Anime le donut
+    const arc = document.querySelector('.gauge__arc');
+    if (arc) {
+      const target = parseFloat(arc.getAttribute('data-val') || '0');
+      const r = parseFloat(arc.getAttribute('r'));
+      const C = 2 * Math.PI * r;
+      const dur = 900, t0 = performance.now();
+      const from = C, to = C - target;
+      const ease = t => (1 - Math.pow(1 - t, 3));
+      const step = (now) => {
+        const p = Math.min(1, (now - t0) / dur);
+        arc.style.strokeDashoffset = (from + (to - from) * ease(p)).toFixed(3);
+        if (p < 1) requestAnimationFrame(step);
+      };
+      arc.style.strokeDashoffset = C.toFixed(3);
+      requestAnimationFrame(step);
+    }
+  </script>
+</body>
+</html>

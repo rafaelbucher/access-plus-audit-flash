@@ -1,0 +1,109 @@
+{
+  "url": "https://www.aphp.fr/",
+  "standard": "WCAG2AA",
+  "issues": [
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Center",
+      "type": "error",
+      "typeCode": 1,
+      "message": "Presentational markup used that has become obsolete in HTML5.",
+      "context": "<center><b>Incident ID:</b> 33b75e55-c7...</center>",
+      "selector": "html > body > div:nth-child(1) > center",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Center",
+      "type": "error",
+      "typeCode": 1,
+      "message": "Presentational markup used that has become obsolete in HTML5.",
+      "context": "<center>\n    <div class=\"row\">\n        ...</center>",
+      "selector": "html > body > div:nth-child(1) > center > center",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Center",
+      "type": "error",
+      "typeCode": 1,
+      "message": "Presentational markup used that has become obsolete in HTML5.",
+      "context": "<center>\n                <p><b> Please ...</center>",
+      "selector": "html > body > div:nth-child(1) > center > center > div > div:nth-child(2) > center",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.Textarea.Name",
+      "type": "error",
+      "typeCode": 1,
+      "message": "This textarea element does not have a name available to an accessibility API. Valid names are: label element, title undefined, aria-label undefined, aria-labelledby undefined.",
+      "context": "<textarea id=\"h-captcha-response-0jdm86s51jff\" name=\"h-captcha-response\" style=\"display: none;\"></textarea>",
+      "selector": "#h-captcha-response-0jdm86s51jff",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_3.1_3_1.F68",
+      "type": "error",
+      "typeCode": 1,
+      "message": "This form field should be labelled in some way. Use the label element (either with a \"for\" attribute or wrapped around the form field), or \"title\", \"aria-label\" or \"aria-labelledby\" attributes as appropriate.",
+      "context": "<textarea id=\"h-captcha-response-0jdm86s51jff\" name=\"h-captcha-response\" style=\"display: none;\"></textarea>",
+      "selector": "#h-captcha-response-0jdm86s51jff",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Center",
+      "type": "error",
+      "typeCode": 1,
+      "message": "Presentational markup used that has become obsolete in HTML5.",
+      "context": "<center>\n                    <input id=...</center>",
+      "selector": "html > body > div:nth-child(1) > center > center > div > div:nth-child(4) > form > center",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Fail",
+      "type": "error",
+      "typeCode": 1,
+      "message": "This element has insufficient contrast at this conformance level. Expected a contrast ratio of at least 4.5:1, but text in this element has a contrast ratio of 3.62:1. Recommendation:  change text colour to #707070.",
+      "context": "<p class=\"text-muted credit\">\n\t\tYou reached this page when t...</p>",
+      "selector": "html > body > div:nth-child(2) > div > p",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Fail",
+      "type": "error",
+      "typeCode": 1,
+      "message": "This element has insufficient contrast at this conformance level. Expected a contrast ratio of at least 4.5:1, but text in this element has a contrast ratio of 3.62:1. Recommendation:  change text colour to #707070.",
+      "context": "<b>https://www.aphp.fr/</b>",
+      "selector": "html > body > div:nth-child(2) > div > p > b:nth-child(1)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Fail",
+      "type": "error",
+      "typeCode": 1,
+      "message": "This element has insufficient contrast at this conformance level. Expected a contrast ratio of at least 4.5:1, but text in this element has a contrast ratio of 3.62:1. Recommendation:  change text colour to #707070.",
+      "context": "<b>88.173.156.167</b>",
+      "selector": "html > body > div:nth-child(2) > div > p > b:nth-child(2)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Fail",
+      "type": "error",
+      "typeCode": 1,
+      "message": "This element has insufficient contrast at this conformance level. Expected a contrast ratio of at least 4.5:1, but text in this element has a contrast ratio of 3.62:1. Recommendation:  change text colour to #707070.",
+      "context": "<b>October 16 2025, 10:04:28 UTC</b>",
+      "selector": "html > body > div:nth-child(2) > div > p > b:nth-child(3)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    }
+  ],
+  "documentTitle": "Radware Captcha Page",
+  "pageUrl": "https://validate.perfdrive.com/?ssa=aa84dad2-c4d9-4546-a971-e4fa6c10ff5b&ssb=67337211881&ssc=https%3A%2F%2Fwww.aphp.fr%2F&ssi=33b75e55-c77j-448b-b23d-b54c4a7fb421&ssk=botmanager_support@radware.com&ssm=19562613747557306100663842726514&ssn=6d8c5264f9270d7e27bf3cb942b05a52624ac16a434d-37b1-4d9f-b442dd&sso=4c5e9abd-a62e3d9da05a311d3abd1f320a3650d793145c70aca38e5e&ssp=11655427331760680391176069049009355&ssq=70312650906688072502509066878476645802943&ssr=ODguMTczLjE1Ni4xNjc=&sst=Mozilla/5.0%20(Windows%20NT%2010.0;%20Win64;%20x64)%20AppleWebKit/537.36%20(KHTML,%20like%20Gecko)%20Chrome/120%20Safari/537.36&ssu=&ssv=&ssw=&ssx=eyJfX3V6bWYiOiI3ZjkwMDBjMTZhNDM0ZC0zN2IxLTRkOWYtYmFiZC1hNjJlM2Q5ZGEwNWExLTE3NjA2MDkwNjc4MzUwLTAwMWE4YTA5MDY2ZjRiMDVhNjcxMCIsInV6bXgiOiI3ZjkwMDAwNGE5MmJiYi02ODFhLTRlYTQtOGFmMi05ZWUzN2QyMmQzZDUxLTE3NjA2MDkwNjc4MzUwLTFhNjEzZDM4ZTY3ZDFmOWQxMCIsInJkIjoiYXBocC5mciJ9",
+  "timestamp": "2025-10-16T10:04:34.560Z"
+}

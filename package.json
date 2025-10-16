@@ -1,0 +1,47 @@
+{
+  "name": "audit-flash-a11y",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "flash:clean": "node src/clean.js",
+
+    "flash:axe": "node src/audit-axe.js",
+    "flash:desktop": "node src/audit-axe.js --mode=desktop && lighthouse \"$URL\" --only-categories=accessibility --preset=desktop --output=json --output=html --output-path=reports/lighthouse-desktop --quiet --chrome-flags=\"--ignore-certificate-errors --no-sandbox --disable-dev-shm-usage\" || true",
+    "flash:mobile": "node src/audit-axe.js --mode=mobile && lighthouse \"$URL\" --only-categories=accessibility --emulated-form-factor=mobile --output=json --output=html --output-path=reports/lighthouse-mobile --quiet --chrome-flags=\"--ignore-certificate-errors --no-sandbox --disable-dev-shm-usage\" || true",
+
+    "flash:axe:static": "node src/audit-axe-static.js",
+
+    "flash:pa11y": "node src/run-pa11y.js",
+    "flash:qualweb": "node src/audit-qualweb.js",
+    "flash:report": "node src/build-report.js",
+
+    "flash:summary": "node src/build-summary.js",
+    "flash:summary:open": "node src/build-summary.js && node src/open-summary.js",
+    "flash:summary:pdf": "node src/build-summary.js && node src/export-summary-pdf.js",
+    "flash:summary:open:pdf": "node src/build-summary.js && node src/export-summary-pdf.js && node src/open-summary.js && node src/open-pdf.js",
+
+    "flash:all": "npm run flash:clean && npm run flash:desktop && npm run flash:mobile && npm run flash:pa11y && npm run flash:qualweb && npm run flash:report",
+    "flash:full": "npm run flash:all && npm run flash:summary:open:pdf",
+
+    "flash:all:static": "npm run flash:clean && npm run flash:axe:static && lighthouse \"$URL\" --only-categories=accessibility --preset=desktop --output=json --output=html --output-path=reports/lighthouse-desktop --quiet --chrome-flags=\"--ignore-certificate-errors --no-sandbox --disable-dev-shm-usage\" || true && lighthouse \"$URL\" --only-categories=accessibility --emulated-form-factor=mobile --output=json --output=html --output-path=reports/lighthouse-mobile --quiet --chrome-flags=\"--ignore-certificate-errors --no-sandbox --disable-dev-shm-usage\" || true && npm run flash:pa11y && npm run flash:qualweb && npm run flash:report && npm run flash:summary:open:pdf",
+    "flash:full:static": "npm run flash:clean && npm run flash:axe:static && lighthouse \"$URL\" --only-categories=accessibility --preset=desktop --output=json --output=html --output-path=reports/lighthouse-desktop --quiet --chrome-flags=\"--ignore-certificate-errors --no-sandbox --disable-dev-shm-usage\" || true && lighthouse \"$URL\" --only-categories=accessibility --emulated-form-factor=mobile --output=json --output=html --output-path=reports/lighthouse-mobile --quiet --chrome-flags=\"--ignore-certificate-errors --no-sandbox --disable-dev-shm-usage\" || true && npm run flash:pa11y && npm run flash:qualweb && npm run flash:report && npm run flash:summary:open:pdf",
+
+    "postinstall": "npx playwright install chromium || true"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "*",
+    "axe-core": "*",
+    "axe-html-reporter": "*",
+    "jsdom": "*",
+    "lighthouse": "*",
+    "pa11y": "*",
+    "pa11y-reporter-html": "*",
+    "playwright": "*",
+    "puppeteer": "*",
+    "@qualweb/core": "*",
+    "@qualweb/wcag-techniques": "*",
+    "@qualweb/act-rules": "*",
+    "undici": "*"
+  }
+}
